@@ -1,0 +1,166 @@
+[
+  {
+    "id": "9fb24af336eb05ba",
+    "type": "tab",
+    "label": "data-products",
+    "disabled": false,
+    "info": "",
+    "env": []
+  },
+  {
+    "id": "d88dd470.0ac7b8",
+    "type": "inject",
+    "z": "9fb24af336eb05ba",
+    "name": "make request",
+    "props": [
+      {
+        "p": "payload"
+      },
+      {
+        "p": "topic",
+        "vt": "str"
+      }
+    ],
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "onceDelay": "",
+    "topic": "",
+    "payload": "",
+    "payloadType": "date",
+    "x": 110,
+    "y": 60,
+    "wires": [
+      [
+        "874a3d4e.9b666"
+      ]
+    ]
+  },
+  {
+    "id": "874a3d4e.9b666",
+    "type": "http request",
+    "z": "9fb24af336eb05ba",
+    "name": "",
+    "method": "GET",
+    "ret": "obj",
+    "paytoqs": "ignore",
+    "url": "https://services.odata.org/V4/Northwind/Northwind.svc/Products",
+    "tls": "",
+    "persist": false,
+    "proxy": "",
+    "insecureHTTPParser": false,
+    "authType": "",
+    "senderr": false,
+    "headers": [],
+    "x": 210,
+    "y": 180,
+    "wires": [
+      [
+        "8124a756eed80e85"
+      ]
+    ]
+  },
+  {
+    "id": "bd9d979bc2f982d1",
+    "type": "link out",
+    "z": "9fb24af336eb05ba",
+    "name": "data-out",
+    "mode": "link",
+    "links": [
+      "9837a671a8287d9f"
+    ],
+    "x": 575,
+    "y": 140,
+    "wires": []
+  },
+  {
+    "id": "1b46af84ba6c57fb",
+    "type": "ui_dropdown",
+    "z": "9fb24af336eb05ba",
+    "name": "",
+    "label": "",
+    "tooltip": "",
+    "place": "Select option",
+    "group": "ac92711b2c91b4dc",
+    "order": 1,
+    "width": 0,
+    "height": 0,
+    "passthru": true,
+    "multiple": false,
+    "options": [
+      {
+        "label": "",
+        "value": "",
+        "type": "str"
+      }
+    ],
+    "payload": "",
+    "topic": "topic",
+    "topicType": "msg",
+    "className": "",
+    "x": 380,
+    "y": 380,
+    "wires": [
+      [
+        "41ac96900d0137c6"
+      ]
+    ]
+  },
+  {
+    "id": "41ac96900d0137c6",
+    "type": "function",
+    "z": "9fb24af336eb05ba",
+    "name": "function 5",
+    "func": "let value = msg.payload;\nreturn { value: value };",
+    "outputs": 1,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 560,
+    "y": 360,
+    "wires": [
+      [
+        "bd9d979bc2f982d1"
+      ]
+    ]
+  },
+  {
+    "id": "8124a756eed80e85",
+    "type": "function",
+    "z": "9fb24af336eb05ba",
+    "name": "function 4",
+    "func": "let products = [];\nlet value= msg.payload.value;\nvalue.forEach(obj => {\n    products.push(obj.ProductName)\n});\nreturn { options: products };",
+    "outputs": 1,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 320,
+    "y": 260,
+    "wires": [
+      [
+        "1b46af84ba6c57fb"
+      ]
+    ]
+  },
+  {
+    "id": "ac92711b2c91b4dc",
+    "type": "ui_group",
+    "name": "select",
+    "tab": "84b93379962d19e4",
+    "order": 1,
+    "disp": true,
+    "width": "6",
+    "collapse": false,
+    "className": ""
+  },
+  {
+    "id": "84b93379962d19e4",
+    "type": "ui_tab",
+    "name": "Dashboard",
+    "icon": "dashboard",
+    "disabled": false,
+    "hidden": false
+  }
+]
